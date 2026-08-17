@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 
 interface MobileBottomNavProps {
-  onOpenSearch?: () => void;
-  onOpenAccount?: () => void;
+  onOpenSearch: () => void;
+  onOpenAccount: () => void;
 }
 
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({

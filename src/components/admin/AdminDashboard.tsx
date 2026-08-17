@@ -283,6 +283,8 @@ export const AdminDashboard: React.FC = () => {
         rating: 5.0,
         reviewCount: 1,
         status: (productForm.status as any) || 'active',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       });
       addToast('success', 'Product Created', 'New item added to BAARIZ IT catalog & dynamic sitemap.');
     }

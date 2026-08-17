@@ -11,12 +11,15 @@ import {
   Cpu,
   Monitor,
   Laptop,
+  Phone,
   User as UserIcon,
   ChevronDown,
+  Sparkles,
   ShieldCheck,
   Wrench,
   Flame,
   Tag,
+  MapPin,
   ExternalLink,
   Bell,
   MessageSquare,
@@ -132,7 +135,43 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80">
-      {/* Main Navigation Bar */}
+      {/* 1. Top Announcement Bar - Mobile Compact & Zero Overflow */}
+      <div id="top-announcement-bar" className="bg-gradient-to-r from-cyan-950 via-slate-950 to-blue-950 border-b border-cyan-500/30 text-xs py-1.5 px-3 sm:px-4 text-cyan-200">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-semibold text-[10px] sm:text-[11px] border border-cyan-500/30 shrink-0">
+              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-cyan-400" />
+              Savar, Dhaka
+            </span>
+            <span className="font-medium text-slate-200 text-[11px] sm:text-xs truncate">
+              {settings.announcementText || 'Welcome to BAARIZ IT — More Tech, More Possibilities'}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-slate-400 text-[11px] shrink-0 ml-auto sm:ml-0">
+            <span className="hidden md:inline-flex items-center gap-1">
+              <MapPin className="w-3 h-3 text-cyan-400" />
+              Savar Bus Stand (Shop A/23)
+            </span>
+            <a
+              id="top-phone-link"
+              href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}
+              className="inline-flex items-center gap-1 text-slate-300 hover:text-cyan-400 font-semibold transition-colors"
+            >
+              <Phone className="w-3 h-3 text-cyan-400" />
+              <span>{settings.phone}</span>
+            </a>
+            <button
+              id="top-track-order-btn"
+              onClick={() => setActivePage('order-tracking')}
+              className="text-cyan-300 hover:text-cyan-200 underline transition-colors cursor-pointer"
+            >
+              Track Order
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
           {/* Logo & Tagline */}

@@ -125,7 +125,7 @@ export default defineConfig(() => {
     plugins: [react(), tailwindcss(), dynamicSitemapPlugin()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(__dirname, '.'),
       },
     },
     server: {

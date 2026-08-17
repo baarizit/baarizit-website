@@ -218,7 +218,6 @@ interface StoreContextType {
   clearCart: () => void;
   cartCount: number;
   cartSubtotal: number;
-  cartTotal: number;
   appliedCoupon: Coupon | null;
   applyCoupon: (code: string) => { success: boolean; message: string };
   removeCoupon: () => void;
@@ -1608,7 +1607,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         clearCart,
         cartCount,
         cartSubtotal,
-        cartTotal: Math.max(0, cartSubtotal - cartDiscount),
         appliedCoupon,
         applyCoupon,
         removeCoupon,

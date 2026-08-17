@@ -23,7 +23,7 @@ export interface BrandInfo {
 }
 
 export type ProductCondition = 'brand_new' | 'refurbished' | 'open_box';
-export type ProductStatus = 'active' | 'draft' | 'out_of_stock' | 'hidden' | 'inactive';
+export type ProductStatus = 'active' | 'draft' | 'out_of_stock' | 'hidden';
 
 export interface Product {
   id: string;
@@ -38,7 +38,6 @@ export interface Product {
   barcode: string;
   purchasePrice?: number; // Cost / Buy price in BDT (৳)
   regularPrice: number; // Selling price in BDT (৳)
-  price?: number; // Alias for price display
   discountPrice?: number; // Offer / Discount price in BDT (৳)
   wholesalePrice?: number;
   isSpecialOffer?: boolean;
@@ -52,10 +51,8 @@ export interface Product {
   reviewCount: number;
   mainImage: string;
   images: string[];
-  galleryImages?: string[];
   shortDescription: string;
   fullDescription: string;
-  keyFeatures?: string[];
   specifications: Record<string, string>;
   tags: string[];
   isFeatured?: boolean;
@@ -134,13 +131,12 @@ export type OrderStatus =
   | 'cancelled'
   | 'returned';
 
-export type PaymentMethod = 'cod' | 'bkash' | 'nagad' | 'bank' | 'bank_transfer';
+export type PaymentMethod = 'cod' | 'bkash' | 'nagad' | 'bank';
 export type PaymentStatus = 'pending' | 'paid' | 'verified' | 'refunded';
 
 export interface OrderItem {
   productId: string;
   productName: string;
-  name?: string;
   sku: string;
   barcode?: string;
   image: string;
@@ -198,7 +194,6 @@ export interface Customer {
   totalOrders: number;
   totalSpent: number;
   status: 'active' | 'blocked';
-  isBlocked?: boolean;
   registeredAt: string;
   lastLoginAt?: string;
   lastOrderDate?: string;
@@ -230,7 +225,6 @@ export interface Conversation {
   customerEmail: string;
   lastMessage: string;
   lastMessageAt: string;
-  lastMessageTimestamp?: string;
   unreadByAdminCount: number;
   unreadByCustomerCount: number;
   status: 'active' | 'closed';
@@ -253,9 +247,7 @@ export interface Coupon {
   id: string;
   code: string;
   discountType: 'percentage' | 'fixed';
-  type?: 'percentage' | 'fixed';
   value: number; // e.g. 10 for 10% or 500 for 500 BDT
-  discountValue?: number;
   minSpend: number;
   maxDiscount?: number;
   expiryDate?: string;

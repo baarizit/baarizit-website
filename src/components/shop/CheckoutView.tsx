@@ -209,7 +209,7 @@ export const CheckoutView: React.FC = () => {
     if (ok) setCouponCodeInput('');
   };
 
-  const handlePlaceOrder = async (e: React.FormEvent) => {
+  const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     if (!customerName.trim() || !customerPhone.trim()) {
       addToast('warning', 'Missing Details', 'Please provide your full name and phone number.');
@@ -226,53 +226,28 @@ export const CheckoutView: React.FC = () => {
       return;
     }
 
-    try {
-      const newOrder = await createOrder({
-        customer: {
-          fullName: customerName.trim(),
-          phone: customerPhone.trim(),
-          email: customerEmail.trim() || '',
-          address:
-            deliveryMethod === 'savar_pickup'
-              ? 'In-Store Pickup (Shop A/23, 3rd Floor, Savar Shopping Complex)'
-              : shippingAddress.trim(),
-          district: city.trim() || 'Savar, Dhaka',
-          area: postalCode.trim() || '1340',
-          notes: orderNotes.trim() || undefined,
-        },
-        items: cart.map((c) => ({
-          productId: c.product.id,
-          productName: c.product.name,
-          name: c.product.name,
-          sku: c.product.sku,
-          image: c.product.mainImage,
-          price: c.product.discountPrice || c.product.regularPrice,
-          quantity: c.quantity,
-          warranty: c.selectedWarranty || c.product.warranty,
-        })),
-        subtotal: cartSubtotal,
-        deliveryFee: 0,
-        discount: 0,
-        total: cartTotal,
-        paymentMethod,
-        paymentStatus: paymentMethod === 'cod' ? 'pending' : 'paid',
-        transactionId: transactionId.trim() || undefined,
-        senderNumber: senderNumber.trim() || undefined,
-        status: 'pending',
-      } as any);
+    const newOrder = createOrder({
+      customerName: customerName.trim(),
+      customerPhone: customerPhone.trim(),
+      customerEmail: customerEmail.trim() || undefined,
+      shippingAddress:
+        deliveryMethod === 'savar_pickup'
+          ? 'In-Store Pickup (Shop A/23, 3rd Floor, Savar Shopping Complex)'
+          : shippingAddress.trim(),
+      city: city.trim(),
+      postalCode: postalCode.trim(),
+      paymentMethod,
+      transactionId: transactionId.trim() || undefined,
+      notes: orderNotes.trim() || undefined,
+    });
 
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
 
-      if (newOrder?.id) {
-        setConfirmedOrderId(newOrder.id);
-      }
-    } catch {
-      // Toast handled by createOrder
-    }
+    setConfirmedOrderId(newOrder.id);
   };
 
   return (
