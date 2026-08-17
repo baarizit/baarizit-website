@@ -122,10 +122,19 @@ Sitemap: ${baseUrl}/sitemap.xml
 
 export default defineConfig(() => {
   return {
+    root: '.',
+    base: '/',
     plugins: [react(), tailwindcss(), dynamicSitemapPlugin()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
+    build: {
+      outDir: 'dist',
+      sourcemap: true,
+      rollupOptions: {
+        input: path.resolve(__dirname, 'index.html'),
       },
     },
     server: {
